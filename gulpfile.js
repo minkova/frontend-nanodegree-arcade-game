@@ -2,10 +2,10 @@
     'use strict';
 
     var gulp = require('gulp');
-    var browserSync = require('browser-sync');
+    var browserSync = require('browser-sync').create();
     var reload = browserSync.reload;
 
-    gulp.task('watch:all', ['serve'], function() {
+    gulp.task('watch:all', function() {
         gulp.watch([
             'app/**/*.js',
             'app/**/*.css',
@@ -13,8 +13,8 @@
         ], [reload]);
     });
 
-    gulp.task('serve', function() {
-        browserSync({
+    gulp.task('serve', function(){
+        browserSync.init({
             server: {
                 baseDir: 'app'
             },
@@ -25,5 +25,5 @@
         });
     });
 
-    gulp.task('default', ['watch:all']);
+    gulp.task('default', ['watch:all', 'serve']);
 }());
